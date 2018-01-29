@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html>
-<body>
-	triste 251'ere: <input type="checkbox" id="minorBtn"><br>
-	glade 251'ere: <input type="checkbox" id="majorBtn"><br>
-	<button id="251btn">stik mig nogle fucking 251'ere</button><br>
-	<p id="251out" charset="UTF-8" style="font-family:Courier New;"></p>
+<body style="font-family:Courier New; ">
+	
+	&#8211;<input type="checkbox" id="minorBtn" style="position:absolute;top:8px;left:30px;"><br>
+	&#9653;<input type="checkbox" id="majorBtn" style="position:absolute;top:25px;left:30px;"><br>
+	<span style='letter-spacing: -4px;margin-left: -7px;'>&#9837;II<sup>7</sup></span><input type="checkbox" id="tritone" style="position:absolute;top:42px;left:30px;"><br>
+	<button id="251btn">go</button><br>
+	<div id="251out" charset="UTF-8" style="margin-left: 50px;margin-top: -70px; font-family:Courier New; ">
+		<p ></p>
+	</div>
 	<script charset="UTF-8">
 		document.getElementById("251btn").addEventListener("click", gen251);
 		var tonesFlat = ["C", "<span style='letter-spacing: -4px;'>D<sup>&#9837;</sup></span>", "D", "<span style='letter-spacing: -4px;'>E<sup>&#9837;</sup></span>", "E", "F", "G<span style='letter-spacing: -4px;'><sup>&#9837;</sup></span>", "G", "<span style='letter-spacing: -4px;'>A<sup>&#9837;</sup></span>", "A", "<span style='letter-spacing: -4px;'>B<sup>&#9837;</sup></span>", "<span style='letter-spacing: -4px;'>C<sup>&#9837;</sup></span>", "C", "<span style='letter-spacing: -4px;'>D<sup>&#9837;</sup></span>", "D", "<span style='letter-spacing: -4px;'>E<sup>&#9837;</sup></span>", "E", "F", "<span style='letter-spacing: -4px;'>G<sup>&#9837;</sup></span>", "G", "<span style='letter-spacing: -4px;'>A<sup>&#9837;</sup></span>", "A", "<span style='letter-spacing: -4px;'>B<sup>&#9837;</sup></span>", "<span style='letter-spacing: -4px;'>C<sup>&#9837;</sup></span>"];
@@ -13,39 +17,61 @@
 			var text251out = "";
 			pickedAlreadyMin = [];
 			pickedAlreadyMaj = [];
-			for (i=0; i<10; i++){
+			for (i=0; i<12; i++){
 				var tone = Math.round(Math.random()*11);
-				if(document.getElementById("minorBtn").checked == true && document.getElementById("majorBtn").checked == true){
+				if(document.getElementById("minorBtn").checked && document.getElementById("majorBtn").checked){
 					if(Math.random()<0.5){
 						tone = pickedAlready(pickedAlreadyMin,tone);
 						pickedAlreadyMin.push(tone);
 						var tones = sharpOrFlat(tone,tonesSharp,tonesFlat,"min");
-						text251out += min251(tones,tone);
+						text251out += min251(tones,tone,i);
 					} else {
 						tone = pickedAlready(pickedAlreadyMaj,tone);
 						pickedAlreadyMaj.push(tone);
 						var tones = sharpOrFlat(tone,tonesSharp,tonesFlat,"maj");
-						text251out += maj251(tones,tone);
+						text251out += maj251(tones,tone,i);
 					}
-				} else if(document.getElementById("minorBtn").checked == true){
+				} else if(document.getElementById("minorBtn").checked){
 					tone = pickedAlready(pickedAlreadyMin,tone);
 					pickedAlreadyMin.push(tone);
 					var tones = sharpOrFlat(tone,tonesSharp,tonesFlat,"min");
-					text251out += min251(tones,tone);
-				} else if(document.getElementById("majorBtn").checked == true){
+					text251out += min251(tones,tone,i);
+				} else if(document.getElementById("majorBtn").checked){
 					tone = pickedAlready(pickedAlreadyMaj,tone);
 					pickedAlreadyMaj.push(tone);
 					var tones = sharpOrFlat(tone,tonesSharp,tonesFlat,"maj");
-					text251out += maj251(tones,tone);
+					text251out += maj251(tones,tone,i);
 				}
 			}
 			document.getElementById("251out").innerHTML = text251out;
 		}
-		function min251(a,b){
-			return a[b+2] + "&#8211;<sup style='letter-spacing: -4px;'>7&#9837;5</sup> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + a[b+7] + "<sup style='letter-spacing: -4px;'>7&#9837;9</sup>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  " + a[b] + "&#8211;<sup>7</sup><br><br><br>";
+		function min251(a,b,c){
+			c+=1;
+			if(c>=10){
+				c+=") ";
+			} else {
+				c+=") &nbsp;";
+			}
+			var dominant = b;
+			if(document.getElementById("tritone").checked){
+				dominant+=1;
+			}
+			return c+a[b+2] + "&#8211;<sup style='letter-spacing: -4px;'>7&#9837;5</sup> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + tonesFlat[dominant] + "<sup style='letter-spacing: -4px;'>7&#9837;9</sup>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  " + a[b] + "&#8211;<sup>7</sup><br><br><br>";
 		}
-		function maj251(a,b){
-			return a[b+2] + "&#8211;<sup>7</sup> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + a[b+7] + "<sup>7</sup> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + a[b] + "<sup>&#9653</sup><br><br><br>";
+		function maj251(a,b,c){
+			c+=1;
+			if(c>=10){
+				c+=") "
+			} else {
+				c+=") &nbsp;"
+			}
+			var dominantChord = a;
+			var dominant = b+7;
+			if(document.getElementById("tritone").checked==true){
+				dominant = b+1;
+				domanintChord = tonesFlat;
+			}
+			return c + a[b+2] + "&#8211;<sup>7</sup> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + dominantChord[dominant] + "<sup>7</sup> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + a[b] + "<sup>&#9653</sup><br><br><br>";
 		}
 		function sharpOrFlat(a,b,c,d){
 			if(d=="maj"){
@@ -55,7 +81,7 @@
 					return c;
 				}
 			} else {
-				if (a == "1" || a == "4" || a == "6" || a == "8" || a == "11"){
+				if (a == "1" || a == "4" || a == "6" || a == "8" || a == "9" || a == "11"){
 					return b;
 				} else {
 					return c;
