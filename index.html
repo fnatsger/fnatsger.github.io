@@ -52,11 +52,13 @@
 			} else {
 				c+=") &nbsp;";
 			}
-			var dominant = b;
-			if(document.getElementById("tritone").checked){
-				dominant+=1;
+			var dominantChord = a;
+			var dominant = b+7;
+			if(document.getElementById("tritone").checked==true){
+				dominant = b+1;
+				dominantChord = tonesFlat;
 			}
-			return c+a[b+2] + "&#8211;<sup style='letter-spacing: -4px;'>7&#9837;5</sup> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + tonesFlat[dominant] + "<sup style='letter-spacing: -4px;'>7&#9837;9</sup>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  " + a[b] + "&#8211;<sup>7</sup><br><br><br>";
+			return c+a[b+2] + "&#8211;<sup style='letter-spacing: -4px;'>7&#9837;5</sup> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + dominantChord[dominant] + "<sup style='letter-spacing: -4px;'>7&#9837;9</sup>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  " + a[b] + "&#8211;<sup>7</sup><br><br><br>";
 		}
 		function maj251(a,b,c){
 			c+=1;
@@ -69,7 +71,7 @@
 			var dominant = b+7;
 			if(document.getElementById("tritone").checked==true){
 				dominant = b+1;
-				domanintChord = tonesFlat;
+				dominantChord = tonesFlat;
 			}
 			return c + a[b+2] + "&#8211;<sup>7</sup> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + dominantChord[dominant] + "<sup>7</sup> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + a[b] + "<sup>&#9653</sup><br><br><br>";
 		}
