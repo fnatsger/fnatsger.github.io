@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<body style="font-family:Courier New; ">
+	<span id="koenTekst"></span> + <span id="kasusTekst"></span>
+	<input type="text" id="svar">
+	<button id="svarKnap" onclick="checkSvar()" style="font-family:Courier New; ">Svar</button>
+	<span id="korrekt"></span>
+	<script type="text/javascript">
+		var nuArtikel = 1;
+		var artikler = ["er","en","es","em","ie","ie","er","er","as","as","es","em","ie","ie","er","en"];
+		var koen = ["Maskulinum","Femininum","Neutrum","Pluralis"];
+		var kasuser = ["Nominativ","Akkusativ","Genitiv","Dativ"];
+		var svarBox = document.getElementById("svar");
+		var korrektBox = document.getElementById("korrekt");
+		svarBox.addEventListener("keyup", function(event) {
+			if (event.keyCode === 13) {
+				checkSvar();
+			}
+		});
+		function checkSvar(){
+			if(svarBox.value == "d"+artikler[nuArtikel]){
+				korrektBox.innerHTML = "jepper";
+			} else {
+				korrektBox.innerHTML = "d"+artikler[nuArtikel];
+			}
+			lavArtikel();
+			console.log(artikler[nuArtikel]);
+			console.log(artikler);
+			console.log(nuArtikel);
+		}
+		function lavArtikel(){
+			nuArtikel = Math.floor(Math.random()*16);
+			document.getElementById("koenTekst").innerHTML = koen[Math.floor(nuArtikel/4)];
+			document.getElementById("kasusTekst").innerHTML = kasuser[nuArtikel%4];
+			document.getElementById("svar").value = "";
+			if(koen[Math.floor(nuArtikel/4)] == undefined || kasuser[nuArtikel%4] == undefined){
+				console.log(nuArtikel);
+			}
+		}
+		lavArtikel();
+	</script>
+</body>
+</html>
