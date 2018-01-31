@@ -7,7 +7,7 @@
 	<span id="korrekt"></span>
 	<script type="text/javascript">
 		var nuArtikel = 1;
-		var artikler = ["er","en","es","em","ie","ie","er","er","as","as","es","em","ie","ie","er","en"];
+		var artikler = ["er","en","es","em","e","e","er","er","es","es","es","em","e","e","er","en"];
 		var koen = ["Maskulinum","Femininum","Neutrum","Pluralis"];
 		var kasuser = ["Nominativ","Akkusativ","Genitiv","Dativ"];
 		var svarBox = document.getElementById("svar");
@@ -18,10 +18,10 @@
 			}
 		});
 		function checkSvar(){
-			if(svarBox.value == "d"+artikler[nuArtikel]){
+			if(svarBox.value == "ein"+artikler[nuArtikel]){
 				korrektBox.innerHTML = "jepper";
 			} else {
-				korrektBox.innerHTML = "d"+artikler[nuArtikel];
+				korrektBox.innerHTML = "ein"+artikler[nuArtikel];
 			}
 			lavArtikel();
 			console.log(artikler[nuArtikel]);
@@ -29,7 +29,7 @@
 			console.log(nuArtikel);
 		}
 		function lavArtikel(){
-			nuArtikel = Math.floor(Math.random()*16);
+			nuArtikel = Math.floor(Math.random()*koen.length*kasuser.length);
 			document.getElementById("koenTekst").innerHTML = koen[Math.floor(nuArtikel/4)];
 			document.getElementById("kasusTekst").innerHTML = kasuser[nuArtikel%4];
 			document.getElementById("svar").value = "";
